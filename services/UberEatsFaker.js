@@ -15,7 +15,7 @@ var UberEatsFaker = {
         _id: "UB" + ID.toString(),
         items: ["OrderItem"],
         transactions: "randomCard",
-        customer: "Customer",
+        customer: randomName,
         vendor: "Vendor",
         subtotal: "Int",
         total: "Int",

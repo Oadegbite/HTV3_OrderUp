@@ -14,7 +14,7 @@ var SkipTheDishesFaker = {
         _id: "SD" + SDID.toString(),
         items: ["OrderItem"],
         transactions: "Transaction",
-        customer: "Customer",
+        customer: randomName,
         vendor: "Vendor",
         subtotal: "Int",
         total: "Int",
@@ -39,12 +39,43 @@ var SkipTheDishesFaker = {
 
   setInProgress: function(req, res, OrderId, updateType)
   { 
-    console.log(OrderId);
-    console.log(updateType);
-    var body = res["body"]
-    console.log(body);
-    body["status"] = 10;
-    res.send(body);
+    if (updateType == "inprogess")
+    {
+      console.log(OrderId);
+      console.log(updateType);
+      var body = res["body"]
+      console.log(body);
+      body["status"] = 10;
+      res.send(body);
+    }
+    else if (updateType == "cancelled")
+    {
+      console.log(OrderId);
+      console.log(updateType);
+      var body = res["body"]
+      console.log(body);
+      body["status"] = 10;
+      res.send(body);
+    }
+    else if (updateType == "complete")
+    {
+      console.log(OrderId);
+      console.log(updateType);
+      var body = res["body"]
+      console.log(body);
+      body["status"] = 10;
+      res.send(body);
+    }
+    else if (updateType == "scheduled_pickup")
+    {
+      console.log(OrderId);
+      console.log(updateType);
+      var body = res["body"]
+      console.log(body);
+      body["status"] = 10;
+      res.send(body);
+    }
+    
   }
 }
 
