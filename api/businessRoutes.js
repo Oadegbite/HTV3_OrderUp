@@ -1,8 +1,10 @@
 'use strict';
 
-var controller = require('./controller');
+var businessController = require('./businessController');
 
 module.exports = function(app) {
    app.route('/about')
-       .get(controller.sample);
+       .get(businessController.sample);
+  app.route('/')
+    .get(businessController.sendIndex);
 };

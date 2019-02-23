@@ -12,19 +12,9 @@
     <script type="text/javascript">
     $.ajax({
       url: "http://localhost:3000/Uber/1212/neworder",
-      error: function() {
-          $('body').html('<p>An error has occurred</p>');
-       },
-      crossDomain:true, 
-      dataType: "jsonp",
-      contentType: 'application/json',
-       success: function(data) {
-         var res = JSON.parse(data);
-         var body = res['body'];
-         $('body').html('<p>' + body+ '/p>');
-       },
-       type: 'GET'
- });
+    }).done(function(data){
+      $('body').html('<p>YAAAAAAAAAAAAAAAAAAAAAAAAAAAAY: ' + type(data) + '</p>');
+    });
     </script>
   </body>
 </html>

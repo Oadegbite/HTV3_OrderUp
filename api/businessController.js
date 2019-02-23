@@ -1,5 +1,5 @@
 'use strict';
-
+var path = require('path');
 var UberEats = require('../services/UberEatsFaker');
 var SkipDishes = require('../services/SkipDishesFaker');
 
@@ -12,6 +12,10 @@ var businessController = {
        }
        res.json(aboutInfo);
    },
+
+   sendIndex: function(req, res){
+     res.sendFile(path.join(__dirname, '../public', 'view.html'));
+   }
 };
 
 module.exports = businessController;
