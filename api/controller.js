@@ -19,6 +19,13 @@ var controllers = {
                res.json(order);
            });
        },
+    skipdishes_order: function(req, res) {
+        SkipDishes.getOrders(req, res, function(err, order) {
+            if (err)
+                res.send(err);
+            res.json(order);
+        });
+    },
 };
 
 module.exports = controllers;

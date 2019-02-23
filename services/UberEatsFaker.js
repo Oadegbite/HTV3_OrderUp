@@ -8,18 +8,20 @@ var UberEatsFaker = {
     var randomName = faker.name.findName(); // Rowan Nikolaus
     var randomEmail = faker.internet.email(); // Kassandra.Haley@erich.biz
     var randomCard = faker.helpers.createCard(); // random contact card containing many properties
+    var orderCreated = faker.date.recent();
+
 
     var Order = {
         _id: randomName,
         items: ["OrderItem"],
-        transactions: randomCard,
+        transactions: "randomCard",
         customer: "Customer",
         vendor: "Vendor",
         subtotal: "Int",
         total: "Int",
         note: "String",
-        payment_method: "String",
-        created_at: "String",
+        payment_method: randomCard,
+        created_at: orderCreated,
         updated_at: "String",
         status_history: ["OrderStatus"],
         scheduled_pickup: "String",
