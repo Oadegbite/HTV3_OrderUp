@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    $.ajax({
+      url: "http://localhost:3000/Uber/1212/neworder",
+      error: function() {
+          $('body').html('<p>An error has occurred</p>');
+       },
+      crossDomain:true, 
+      dataType: "jsonp",
+      contentType: 'application/json',
+       success: function(data) {
+         var res = JSON.parse(data);
+         var body = res['body'];
+         $('body').html('<p>' + body+ '/p>');
+       },
+       type: 'GET'
+ });
+    </script>
+  </body>
+</html>

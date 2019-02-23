@@ -2,6 +2,7 @@
 
 var UberEats = require('../services/UberEatsFaker');
 var SkipDishes = require('../services/SkipDishesFaker');
+var request = require('request')
 var UBID = 0;
 var SDID = 0;
 
@@ -25,7 +26,7 @@ var controllers = {
     },
 
     uber_update: function(req, res) {
-        UberEats.setInProgress(req, res, req["params"]["orderID"], req["params"]["updateType"], function(err, order) {
+      UberEats.setInProgress(req, res, req["params"]["orderID"], req["params"]["updateType"], function(err, order) {
             if (err){
              res.send(err);
             }
@@ -49,7 +50,7 @@ var controllers = {
             }
         });
     },
-    
+
 };
 
 module.exports = controllers;

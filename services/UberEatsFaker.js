@@ -21,7 +21,7 @@ var UberEatsFaker = {
         total: "Int",
         note: "String",
         payment_method: "randomCard",
-        created_at: orderCreated,
+        created_at: 'orderCreated',
         updated_at: "String",
         status_history: ["OrderStatus"],
         scheduled_pickup: "String",
@@ -33,12 +33,13 @@ var UberEatsFaker = {
         attached_survey: "Survey",
         discount: "Int"
     }
-    
-    res.send(Order);
+
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(Order));
   },
 
   setInProgress: function(req, res, OrderId, updateType)
-  { 
+  {
     console.log(OrderId);
     console.log(updateType);
     var body = JSON.parse(req);
