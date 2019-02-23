@@ -2,7 +2,7 @@ var faker = require('faker');
 
 
 var UberEatsFaker = {
-  getOrders: function(req, res, next){
+  getOrders: function(req, res, ID,next){
     //this is where we would make a request to other API
     //request()
     var randomName = faker.name.findName(); // Rowan Nikolaus
@@ -12,7 +12,7 @@ var UberEatsFaker = {
 
 
     var Order = {
-        _id: randomName,
+        _id: "UB" + ID.toString(),
         items: ["OrderItem"],
         transactions: "randomCard",
         customer: "Customer",
@@ -20,7 +20,7 @@ var UberEatsFaker = {
         subtotal: "Int",
         total: "Int",
         note: "String",
-        payment_method: randomCard,
+        payment_method: "randomCard",
         created_at: orderCreated,
         updated_at: "String",
         status_history: ["OrderStatus"],
@@ -33,8 +33,20 @@ var UberEatsFaker = {
         attached_survey: "Survey",
         discount: "Int"
     }
+    
     res.send(Order);
+  },
+
+  setInProgress: function(req, res, OrderId, updateType)
+  { 
+    console.log(OrderId);
+    console.log(updateType);
+    var body = JSON.parse(req);
+    console.log(body);
+    body["status"] = 10;
+    res.send(body);
   }
+
 }
 
 module.exports = UberEatsFaker;
