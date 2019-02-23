@@ -1,0 +1,29 @@
+{
+  "name": "orderup_faker",
+  "version": "1.0.0",
+  "description": "APIs for fake Food Delivery Data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oadegbite/HTV3_OrderUp.git"
+  },
+  "keywords": [
+    "orderup",
+    "food",
+    "delivery",
+    "centralized"
+  ],
+  "author": "Judd Orcasitas, Tomi Adegbite",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Oadegbite/HTV3_OrderUp/issues"
+  },
+  "homepage": "https://github.com/Oadegbite/HTV3_OrderUp#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "request": "^2.88.0"
+  }
+}
