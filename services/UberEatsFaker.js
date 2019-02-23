@@ -9,10 +9,9 @@ var UberEatsFaker = {
     var randomEmail = faker.internet.email(); // Kassandra.Haley@erich.biz
     var randomCard = faker.helpers.createCard(); // random contact card containing many properties
     var orderCreated = faker.date.recent();
-
-
+    var id = "UB" + ID.toString();
     var Order = {
-        _id: "UB" + ID.toString(),
+        id: id,
         items: ["OrderItem"],
         transactions: "randomCard",
         customer: "Customer",
@@ -31,11 +30,16 @@ var UberEatsFaker = {
         preparing_at: "String",
         estimated_preparing_sec: "Int",
         attached_survey: "Survey",
-        discount: "Int"
+        discount: "Int",
     }
 
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(Order));
+    try{
+      res.end(JSON.stringify(Order));
+      console.log("success")
+    }catch(e){
+      console.log(e);
+    }
   },
 
   setInProgress: function(req, res, OrderId, updateType)
