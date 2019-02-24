@@ -20,13 +20,20 @@ var businessController = {
    startPoll: function(req, res){
      res.send(OrderPoll.timerStart(restaurantID));
    },
+   
    showOrders: function(req, res){
      var orders  = OrderPoll.getOrders();
      res.send(orders);
    },
+
    stahp: function(req, res){
      res.send(OrderPoll.stopTimer());
-   }
+   }, 
+
+  storeFront: function(req, res){
+    res.sendFile(path.join(__dirname, '../public', 'storefront.html'));
+  },
+
 };
 
 module.exports = businessController;

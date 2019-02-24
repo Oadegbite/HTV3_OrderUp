@@ -9,12 +9,15 @@
     <title></title>
   </head>
   <body>
-
-     <button onclick=UberCreateOrder(1212)> Create Uber Order </button>
+    <script> 
+    var orderList = GetList();
+    console.log(orderList);
+    </script>
+    <button onclick=UberCreateOrder(1212)> Create Uber Order </button>
 
     <button onclick=SkipDishesCreateOrder(1212)> Create Skip Dishes Order </button>
 
-     <button onclick=SkipDishesReadyUpdateOrder(0)> Update Uber Orders to Ready</button>
+    <button onclick=SkipDishesReadyUpdateOrder(0)> Update Uber Orders to Ready</button>
     
     <button onclick=UberUpdateReadyOrder(1)> Update Skip Dishes Orders to Ready</button>
 
@@ -30,6 +33,16 @@
 </html>
 
 <script> 
+
+function GetList(){ 
+$.ajax({ url: "http://localhost:3001/orders", 
+}).done(function(data){ 
+  console.log(" ");
+  console.log(data);
+  console.log("Got List end")
+  return data})};
+
+
 function UberUpdateReadyOrder(orderNum){ 
 $.ajax({ url: "http://localhost:3000/Uber/1212/updateOrderProgress/UB" + orderNum.toString() + "/Ready", 
 }).done(function(data){ 
