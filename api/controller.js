@@ -6,8 +6,8 @@ var SkipDishes = require('../services/SkipDishesFaker');
 var request = require('request')
 var UBID = 0;
 var SDID = 0;
-var UberList = {};
-var SkipDishesList = {};
+var UberObj = new UberEats();
+var SkipDishesObj = new SkipDishes();
 
 var controllers = {
    sample: function(req, res) {
@@ -19,7 +19,7 @@ var controllers = {
    },
 
    uber_order: function(req, res) {
-           UberEats.getOrders(req, res, UBID, UberList,function(err, order) {
+    UberObj.getOrders(req, res, UBID, function(err, order) {
                if (err)
                {
                 res.send(err);
@@ -30,7 +30,7 @@ var controllers = {
     },
 
     uber_update: function(req, res) {
-      UberEats.update(req, res, req["params"]["orderID"], req["params"]["updateType"], UberList, function(err, order) {
+        UberObj.update(req, res, req["params"]["orderID"], req["params"]["updateType"], function(err, order) {
             if (err){
              res.send(err);
             }
@@ -39,7 +39,7 @@ var controllers = {
     },
 
     skipdishes_order: function(req, res) {
-        SkipDishes.getOrders(req, res, SDID, SkipDishesList,function(err, order) {
+        SkipDishesObj.getOrders(req, res, SDID, function(err, order) {
             if (err)
             {
                 res.send(err);
@@ -49,7 +49,23 @@ var controllers = {
     },
 
     skipdishes_update: function(req, res) {
-        SkipDishes.update(req, res, req["params"]["orderID"], req["params"]["updateType"], SkipDishesList, function(err, order) {
+        SkipDishesObj.update(req, res, req["params"]["orderID"], req["params"]["updateType"], function(err, order) {
+            if (err){
+             res.send(err);
+            }
+        });
+    },
+
+    skipdishes_list: function(req, res) {
+        SkipDishesObj.getList(req, res , function(err, order) {
+            if (err){
+             res.send(err);
+            }
+        });
+    },
+
+    uber_list: function(req, res) {
+        UberObj.getList(req, res , function(err, order) {
             if (err){
              res.send(err);
             }

@@ -1,9 +1,14 @@
 var faker = require('faker');
 
 
-var SkipTheDishesFaker = {
+module.exports = class SkipTheDishesFaker {
+
+  constructor() {
+    this.SkipDishList = {};
+    this.interval;
+  }
   
-  getOrders: function(req, res, SDID, SkipDishList,next){
+  getOrders(req, res, SDID, next){
     //this is where we would make a request to other API
     //request()
     var randomName = faker.name.findName(); // Rowan Nikolaus
@@ -12,8 +17,9 @@ var SkipTheDishesFaker = {
     var orderCreated = faker.date.recent();
     var price = faker.commerce.price(10,100);
     var today = new Date();
+    var id = "SD" + SDID.toString();
     var Order = {
-        id: "SD" + SDID.toString(),
+        id: id,
         items: ["OrderItem"],
         transactions: "Transaction",
         customer: randomName,
@@ -35,7 +41,7 @@ var SkipTheDishesFaker = {
         discount: "Int"
     }
     
-    SkipDishList[id] = Order;
+    this.SkipDishList[id] = Order;
     console.log("Create " + Order["id"] + " : " + Order)
     //res.setHeader('Content-Type', 'application/json');
     try{
@@ -44,18 +50,18 @@ var SkipTheDishesFaker = {
     }catch(e){
       console.log("Skipthe Eats getOrder: " + e);
     }
-  },
+  }
 
 
-  update: function(req, res, OrderId, updateType, SkipDishList)
+  update(req, res, OrderId, updateType)
   { 
     var today = new Date();
-    console.log("List: " + SkipDishList);
-    console.log(SkipDishList[OrderId] + " : " + OrderId)
+    console.log("List: " + this.SkipDishList);
+    console.log(this.SkipDishList[OrderId] + " : " + OrderId)
 
-      if (SkipDishList[OrderId])
+      if (this.SkipDishList[OrderId])
       {
-        order = SkipDishList[OrderId]
+        var order = this.SkipDishList[OrderId]
         console.log(order["status"])
         if (updateType == "Confirm")
         {
@@ -89,13 +95,11 @@ var SkipTheDishesFaker = {
       console.log("No Object Found");
       return;
       }
-  },
+  }
 
-  getList: function(req, res, OrderId, updateType, SkipDishList)
+  getList(req, res)
   { 
-    
-  },
-  
-}
+    return this.SkipDishList;
+  }
 
-module.exports = SkipTheDishesFaker;
+}

@@ -13,4 +13,9 @@ module.exports = function(app) {
     .get(controller.skipdishes_order);
     app.route('/SkipTheDishes/:restaurantID/updateOrderProgress/:orderID/:updateType')
     .get(controller.skipdishes_update);
+    app.route('/Uber/getList')
+    .get(controller.uber_order);
+    app.route('/SkipTheDishes/getList')
+    .get(controller.skipdishes_list);
+    
 };

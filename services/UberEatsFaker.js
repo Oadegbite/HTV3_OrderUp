@@ -1,8 +1,14 @@
 var faker = require('faker');
 
 
-var UberEatsFaker = {
-  getOrders: function(req, res, ID, UberList,next){
+module.exports = class UberEatsFaker {
+
+  constructor() {
+    this.UberList = {};
+    this.interval;
+  }
+
+  getOrders(req, res, ID, next){
     //this is where we would make a request to other API
     //request()
     var randomName = faker.name.findName(); // Rowan Nikolaus
@@ -35,7 +41,7 @@ var UberEatsFaker = {
         discount: "Int",
     }
 
-    UberList[id] = Order;
+    this.UberList[id] = Order;
     console.log("Create " + Order["id"] + " : " + Order)
     //res.setHeader('Content-Type', 'application/json');
     try{
@@ -44,17 +50,17 @@ var UberEatsFaker = {
     }catch(e){
       console.log("Uber Eats getOrder: " + e);
     }
-  },
+  }
 
-  update: function(req, res, OrderId, updateType, UberList)
+  update(req, res, OrderId, updateType)
   { 
     var today = new Date();
-    console.log("List: " + UberList);
-    console.log(UberList[OrderId] + " : " + OrderId)
+    console.log("List: " + this.UberList);
+    console.log(this.UberList[OrderId] + " : " + OrderId)
 
-      if (UberList[OrderId])
+      if (this.UberList[OrderId])
       {
-        order = UberList[OrderId]
+        var order = this.UberList[OrderId]
         console.log(order["status"])
         if (updateType == "Confirm")
         {
@@ -89,15 +95,13 @@ var UberEatsFaker = {
       return;
       }
       
-    },
+    }
     
 
-  searchObject: function(req, res, OrderId, updateType)
+  getList(req, res)
   { 
-    
-    
+    return this.UberList;
   }
 
 }
 
-module.exports = UberEatsFaker;
