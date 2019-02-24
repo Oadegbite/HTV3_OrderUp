@@ -78,7 +78,7 @@ module.exports = class SkipTheDishesFaker {
           order.status_history.push(order.status);
           order.settled_at = today.toLocaleTimeString();
         }
-        else if (updateType == "En Route")
+        else if (updateType == "EnRoute")
         {
           order.status = "En Route";
           order.updated_at = today.toLocaleTimeString();
