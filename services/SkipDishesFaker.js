@@ -9,25 +9,26 @@ var SkipTheDishesFaker = {
     var randomEmail = faker.internet.email(); // Kassandra.Haley@erich.biz
     var randomCard = faker.helpers.createCard(); // random contact card containing many properties
     var orderCreated = faker.date.recent();
-
+    var price = faker.commerce.price(10,100);
+    var today = new Date();
     var Order = {
         id: "SD" + SDID.toString(),
         items: ["OrderItem"],
         transactions: "Transaction",
         customer: randomName,
         vendor: "Vendor",
-        subtotal: "Int",
-        total: "Int",
+        subtotal: price,
+        total: price * 1.13,
         note: "String",
         payment_method: randomCard["accountHistory"]["account"],
-        created_at: "String",
-        updated_at: "String",
+        created_at: today.toLocaleTimeString(),
+        updated_at: today.toLocaleTimeString(),
         status_history: ["OrderStatus"],
         scheduled_pickup: "String",
-        status: "String",
-        cancel_reason: "String",
-        settled_at: "String",
-        preparing_at: "String",
+        status: "Confirmation Pending",
+        cancel_reason: "Null",
+        settled_at: "Null",
+        preparing_at: "Null",
         estimated_preparing_sec: "Int",
         attached_survey: "Survey",
         discount: "Int"
