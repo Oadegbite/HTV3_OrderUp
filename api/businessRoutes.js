@@ -7,4 +7,10 @@ module.exports = function(app) {
        .get(businessController.sample);
   app.route('/')
     .get(businessController.sendIndex);
+  app.route('/authenticate')
+    .get(businessController.startPoll);
+  app.route('/orders')
+    .get(businessController.showOrders);
+  app.route('/stahp')
+    .get(businessController.stahp);
 };
