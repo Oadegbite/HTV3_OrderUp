@@ -2,6 +2,7 @@ var faker = require('faker');
 
 
 var SkipTheDishesFaker = {
+  
   getOrders: function(req, res, SDID, SkipDishList,next){
     //this is where we would make a request to other API
     //request()
@@ -89,6 +90,12 @@ var SkipTheDishesFaker = {
       return;
       }
   },
+
+  getList: function(req, res, OrderId, updateType, SkipDishList)
+  { 
+    
+  },
+  
 }
 
 module.exports = SkipTheDishesFaker;
