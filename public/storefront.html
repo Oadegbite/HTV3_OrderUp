@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+    <title></title>
+  </head>
+  <body>
+    <script> 
+
+function GetList(){ 
+$.ajax({ url: "http://localhost:3001/orders", 
+}).done(function(data){ 
+  console.log(" ");
+  console.log(data);
+  console.log("Got List end")
+  return data})};
+  
+    var orderList = GetList();
+    console.log(orderList);
+    </script>
+    <button onclick=UberCreateOrder(1212)> Create Uber Order </button>
+
+    <button onclick=SkipDishesCreateOrder(1212)> Create Skip Dishes Order </button>
+
+    <button onclick=SkipDishesReadyUpdateOrder(0)> Update Uber Orders to Ready</button>
+    
+    <button onclick=UberUpdateReadyOrder(1)> Update Skip Dishes Orders to Ready</button>
+
+    <button onclick=SkipDishesConfirmUpdateOrder(0)> Update Uber Orders to Confirm</button>
+    
+    <button onclick=UberUpdateConfirmOrder(1)> Update Skip Dishes Orders to Confirm</button>
+  
+    <button onclick=SkipDishesEnRouteUpdateOrder(0)> Update Uber Orders to EnRoute</button>
+    
+    <button onclick=UberUpdateEnRouteOrder(1)> Update Skip Dishes Orders to EnRoute</button>
+
+  </body>
+</html>
+
+<script> 
+
+function GetList(){ 
+$.ajax({ url: "http://localhost:3001/orders", 
+}).done(function(data){ 
+  console.log(" ");
+  console.log(data);
+  console.log("Got List end")
+  return data})};
+
+
+function UberUpdateReadyOrder(orderNum){ 
+$.ajax({ url: "http://localhost:3000/Uber/1212/updateOrderProgress/UB" + orderNum.toString() + "/Ready", 
+}).done(function(data){ 
+  console.log(" ");
+  console.log(data);
+  console.log("UberUpdateOrder end")})};
+
+function SkipDishesReadyUpdateOrder(orderNum){ 
+$.ajax({ url: "http://localhost:3000/SkipTheDishes/1212/updateOrderProgress/SD" + orderNum.toString() + "/Ready", 
+}).done(function(data){ 
+  console.log(" ");
+  console.log(data);
+  console.log("SkipDishesUpdateOrder end")})};
+
+  function UberUpdateConfirmOrder(orderNum){ 
+$.ajax({ url: "http://localhost:3000/Uber/1212/updateOrderProgress/UB" + orderNum.toString() + "/Confirm", 
+}).done(function(data){ 
+  console.log(" ");
+  console.log(data);
+  console.log("UberUpdateOrder end")})};
+
+function SkipDishesConfirmUpdateOrder(orderNum){ 
+$.ajax({ url: "http://localhost:3000/SkipTheDishes/1212/updateOrderProgress/SD" + orderNum.toString() + "/Confirm", 
+}).done(function(data){ 
+  console.log(" ");
+  console.log(data);
+  console.log("SkipDishesUpdateOrder end")})};
+
+  function UberUpdateEnRouteOrder(orderNum){ 
+$.ajax({ url: "http://localhost:3000/Uber/1212/updateOrderProgress/UB" + orderNum.toString() + "/EnRoute", 
+}).done(function(data){ 
+  console.log(" ");
+  console.log(data);
+  console.log("UberUpdateOrder end")})};
+
+function SkipDishesEnRouteUpdateOrder(orderNum){ 
+$.ajax({ url: "http://localhost:3000/SkipTheDishes/1212/updateOrderProgress/SD" + orderNum.toString() + "/EnRoute", 
+}).done(function(data){ 
+  console.log(" ");
+  console.log(data);
+  console.log("SkipDishesUpdateOrder end")})};
+
+function SkipDishesCreateOrder(ResturantID){ 
+$.ajax({ url: "http://localhost:3000/SkipTheDishes/"+ ResturantID.toString() +"/neworder", 
+}).done(function(data){ 
+  console.log(" ");
+  console.log(data);
+  console.log("SkipDishesCreateOrder end")})};
+
+function UberCreateOrder(ResturantID){ 
+$.ajax({ url: "http://localhost:3000/Uber/"+ ResturantID.toString() +"/neworder", 
+}).done(function(data){ 
+  console.log(" ");
+  console.log(data);
+  console.log("UberCreateOrder end")})};
+
+</script> 

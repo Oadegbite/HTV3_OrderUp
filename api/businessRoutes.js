@@ -13,4 +13,6 @@ module.exports = function(app) {
     .get(businessController.showOrders);
   app.route('/stahp')
     .get(businessController.stahp);
+  app.route('/storefront')
+  .get(businessController.storeFront);
 };
