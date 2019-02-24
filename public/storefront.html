@@ -10,6 +10,15 @@
   </head>
   <body>
     <script> 
+
+function GetList(){ 
+$.ajax({ url: "http://localhost:3001/orders", 
+}).done(function(data){ 
+  console.log(" ");
+  console.log(data);
+  console.log("Got List end")
+  return data})};
+  
     var orderList = GetList();
     console.log(orderList);
     </script>
