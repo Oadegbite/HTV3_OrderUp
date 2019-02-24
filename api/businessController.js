@@ -1,9 +1,9 @@
 'use strict';
 var path = require('path');
-var UberEats = require('../services/UberEatsFaker');
-var SkipDishes = require('../services/SkipDishesFaker');
-
-
+var businessService = require('../services/businessService');
+var OrderPoll = new businessService();
+const restaurantID = '1234';
+var _timr;
 var businessController = {
    sample: function(req, res) {
        var aboutInfo = {
@@ -15,6 +15,21 @@ var businessController = {
 
    sendIndex: function(req, res){
      res.sendFile(path.join(__dirname, '../public', 'view.html'));
+   },
+
+   startPoll: function(req, res){
+     res.send(OrderPoll.timerStart(restaurantID));
+   },
+   showOrders: function(req, res){
+     OrderPoll.getOrders(function(err){
+       if(err){
+         res.send(err);
+       }
+       res.send("orders no prob")
+    });
+   },
+   stahp: function(req, res){
+     res.send(OrderPoll.stopTimer());
    }
 };
 
