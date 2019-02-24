@@ -7,7 +7,7 @@ module.exports = class SkipTheDishesFaker {
     this.SkipDishList = {};
     this.interval;
   }
-  
+
   getOrders(req, res, SDID, next){
     //this is where we would make a request to other API
     //request()
@@ -40,7 +40,7 @@ module.exports = class SkipTheDishesFaker {
         attached_survey: "Survey",
         discount: "Int"
     }
-    
+
     this.SkipDishList[id] = Order;
     console.log("Create " + Order["id"] + " : " + Order)
     //res.setHeader('Content-Type', 'application/json');
@@ -54,7 +54,7 @@ module.exports = class SkipTheDishesFaker {
 
 
   update(req, res, OrderId, updateType)
-  { 
+  {
     var today = new Date();
     console.log("List: " + this.SkipDishList);
     console.log(this.SkipDishList[OrderId] + " : " + OrderId)
@@ -98,8 +98,8 @@ module.exports = class SkipTheDishesFaker {
   }
 
   getList(req, res)
-  { 
-    return this.SkipDishList;
+  {
+    return JSON.stringify(this.SkipDishList);
   }
 
 }

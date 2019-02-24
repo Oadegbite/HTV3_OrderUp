@@ -21,12 +21,8 @@ var businessController = {
      res.send(OrderPoll.timerStart(restaurantID));
    },
    showOrders: function(req, res){
-     OrderPoll.getOrders(function(err){
-       if(err){
-         res.send(err);
-       }
-       res.send("orders no prob")
-    });
+     var orders  = OrderPoll.getOrders();
+     res.send(orders);
    },
    stahp: function(req, res){
      res.send(OrderPoll.stopTimer());

@@ -53,7 +53,7 @@ module.exports = class UberEatsFaker {
   }
 
   update(req, res, OrderId, updateType)
-  { 
+  {
     var today = new Date();
     console.log("List: " + this.UberList);
     console.log(this.UberList[OrderId] + " : " + OrderId)
@@ -94,14 +94,13 @@ module.exports = class UberEatsFaker {
       console.log("No Object Found");
       return;
       }
-      
+
     }
-    
+
 
   getList(req, res)
-  { 
-    return this.UberList;
+  {
+    return JSON.stringify(this.UberList);
   }
 
 }
-

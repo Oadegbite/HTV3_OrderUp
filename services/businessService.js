@@ -2,12 +2,35 @@ const request = require('request');
 
 module.exports = class OrderPoll {
   constructor() {
-    this.orders = {};
     this.interval;
   }
 
   getOrders(){
-    return this.orders;
+    let orderList = {}
+
+    request('http://localhost:3000/Uber/getList/', { json: true }, (err, res, body) => {
+      console.log(body);
+      if (err) {
+        console.log("failed to place uber order");
+        return -1;
+      }
+      (function(){
+        return function(cb){
+
+        };
+      });
+
+    });
+    request('http://localhost:3000/SkipTheDishes/getList/', { json: true }, (err, res, body) => {
+      console.log(body);
+      if (err) {
+        console.log("failed to place uber order");
+        return -1;
+      }
+      orderList = {"home": 0};
+    });
+    console.log(orderList);
+    return JSON.stringify(orderList);
   }
 
   timerStart(restaurantID){
@@ -21,7 +44,7 @@ module.exports = class OrderPoll {
               console.log("failed to place uber order");
               return -1;
             }
-            console.log(res);
+            console.log(res.body);
             //orders[body.order.id] = body.order;
           });
         }else{
@@ -30,11 +53,11 @@ module.exports = class OrderPoll {
               console.log("failed to place SkipDishes order");
               return -1;
             }
-            console.log(res);
+            console.log(res.body);
           //  orders[body.order.id] = body.order;
           });
         }
-      }, 15000);
+      }, 5000);
       msg = 'timer started success'
     }catch(err){
       console.log(err)

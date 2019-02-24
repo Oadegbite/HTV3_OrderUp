@@ -26,7 +26,7 @@ var controllers = {
                }
            });
            UBID += 1;
-           res.sendFile(path.join(__dirname, '../public', 'view.html'));  //debug
+           //res.sendFile(path.join(__dirname, '../public', 'view.html'));  //debug
     },
 
     uber_update: function(req, res) {
@@ -35,7 +35,7 @@ var controllers = {
              res.send(err);
             }
         });
-        res.sendFile(path.join(__dirname, '../public', 'view.html'));  //debug
+        //res.sendFile(path.join(__dirname, '../public', 'view.html'));  //debug
     },
 
     skipdishes_order: function(req, res) {
@@ -57,19 +57,21 @@ var controllers = {
     },
 
     skipdishes_list: function(req, res) {
-        SkipDishesObj.getList(req, res , function(err, order) {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(SkipDishesObj.getList(req, res , function(err, order) {
             if (err){
              res.send(err);
             }
-        });
+        }));
     },
 
     uber_list: function(req, res) {
-        UberObj.getList(req, res , function(err, order) {
+      res.setHeader('Content-Type', 'application/json');
+      res.send(UberObj.getList(req, res , function(err, order) {
             if (err){
              res.send(err);
             }
-        });
+        }));
     },
 
 };
