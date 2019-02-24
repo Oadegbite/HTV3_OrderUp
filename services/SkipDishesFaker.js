@@ -2,7 +2,7 @@ var faker = require('faker');
 
 
 var SkipTheDishesFaker = {
-  getOrders: function(req, res, SDID,next){
+  getOrders: function(req, res, SDID, SkipDishList,next){
     //this is where we would make a request to other API
     //request()
     var randomName = faker.name.findName(); // Rowan Nikolaus
@@ -11,7 +11,7 @@ var SkipTheDishesFaker = {
     var orderCreated = faker.date.recent();
 
     var Order = {
-        _id: "SD" + SDID.toString(),
+        id: "SD" + SDID.toString(),
         items: ["OrderItem"],
         transactions: "Transaction",
         customer: randomName,
@@ -33,50 +33,61 @@ var SkipTheDishesFaker = {
         discount: "Int"
     }
     
-    res.send(Order);
+    SkipDishList[id] = Order;
+    console.log("Create " + Order["id"] + " : " + Order)
+    //res.setHeader('Content-Type', 'application/json');
+    try{
+      //res.end(JSON.stringify(Order));
+      console.log("Skip the dishs Order create success")
+    }catch(e){
+      console.log("Skipthe Eats getOrder: " + e);
+    }
   },
 
 
-  setInProgress: function(req, res, OrderId, updateType)
+  update: function(req, res, OrderId, updateType, SkipDishList)
   { 
-    if (updateType == "inprogess")
-    {
-      console.log(OrderId);
-      console.log(updateType);
-      var body = res["body"]
-      console.log(body);
-      body["status"] = 10;
-      res.send(body);
-    }
-    else if (updateType == "cancelled")
-    {
-      console.log(OrderId);
-      console.log(updateType);
-      var body = res["body"]
-      console.log(body);
-      body["status"] = 10;
-      res.send(body);
-    }
-    else if (updateType == "complete")
-    {
-      console.log(OrderId);
-      console.log(updateType);
-      var body = res["body"]
-      console.log(body);
-      body["status"] = 10;
-      res.send(body);
-    }
-    else if (updateType == "scheduled_pickup")
-    {
-      console.log(OrderId);
-      console.log(updateType);
-      var body = res["body"]
-      console.log(body);
-      body["status"] = 10;
-      res.send(body);
-    }
-    
-  }
+    var today = new Date();
+    console.log("List: " + SkipDishList);
+    console.log(SkipDishList[OrderId] + " : " + OrderId)
+
+      if (SkipDishList[OrderId])
+      {
+        order = SkipDishList[OrderId]
+        console.log(order["status"])
+        if (updateType == "Confirm")
+        {
+          order.status = "In Progress";
+          order.updated_at = today.toLocaleTimeString();
+          order.status_history.push(order.status);
+          order.preparing_at = today.toLocaleTimeString();
+
+        }
+        else if (updateType == "Ready")
+        {
+          order.status = "Done";
+          order.updated_at = today.toLocaleTimeString();
+          order.status_history.push(order.status);
+          order.settled_at = today.toLocaleTimeString();
+        }
+        else if (updateType == "En Route")
+        {
+          order.status = "En Route";
+          order.updated_at = today.toLocaleTimeString();
+          order.status_history.push(order.status);
+        }
+        else
+        {
+          console.log("Invalid update Type");
+          return;
+        }
+        console.log(order["status"])
+      }
+      else{
+      console.log("No Object Found");
+      return;
+      }
+  },
 }
 
 module.exports = SkipTheDishesFaker;

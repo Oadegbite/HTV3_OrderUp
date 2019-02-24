@@ -5,6 +5,11 @@
     <title></title>
   </head>
   <body>
+  
+   <form action="http://localhost:3000/Uber/1212/neworder" method="GET">
+      <input type="submit" value="Create"/>
+   </form>
+
     <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -13,8 +18,22 @@
     $.ajax({
       url: "http://localhost:3000/Uber/1212/neworder",
     }).done(function(data){
-      $('body').html('<p>YAAAAAAAAAAAAAAAAAAAAAAAAAAAAY: ' + type(data) + '</p>');
+      console.log(data)
+      //$('body').html('<p>YAAAAAAAAAAAAAAAAAAAAAAAAAAAAY: ' + data + '</p>');
     });
     </script>
+
+     <button onclick=myFunction()> click me </button>
+
   </body>
 </html>
+
+<script> 
+function myFunction(){ 
+$.ajax({ url: "http://localhost:3000/Uber/1212/updateOrderProgress/UB0/Confirm", 
+}).done(function(data){ 
+  console.log(" ");
+  console.log(data);
+  console.log("My fun end")})};
+
+</script> 
