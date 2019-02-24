@@ -17,19 +17,21 @@ module.exports = class SkipTheDishesFaker {
     var orderCreated = faker.date.recent();
     var price = faker.commerce.price(10,100);
     var today = new Date();
+    today = today.toLocaleTimeString();
+
     var id = "SD" + SDID.toString();
     var Order = {
         id: id,
         items: ["OrderItem"],
         transactions: "Transaction",
         customer: randomName,
-        vendor: "Vendor",
+        vendor: "SkipTheDishes",
         subtotal: price,
         total: price * 1.13,
         note: "String",
         payment_method: randomCard["accountHistory"]["account"],
-        created_at: today.toLocaleTimeString(),
-        updated_at: today.toLocaleTimeString(),
+        created_at: today,
+        updated_at: today,
         status_history: ["OrderStatus"],
         scheduled_pickup: "String",
         status: "Confirmation Pending",
@@ -41,7 +43,7 @@ module.exports = class SkipTheDishesFaker {
         discount: "Int"
     }
 
-    this.SkipDishList[id] = Order;
+    this.SkipDishList[today] = Order;
     console.log("Create " + Order["id"] + " : " + Order)
     //res.setHeader('Content-Type', 'application/json');
     try{

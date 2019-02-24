@@ -17,19 +17,20 @@ module.exports = class UberEatsFaker {
     var orderCreated = faker.date.recent();
     var price = faker.commerce.price(10,100);
     var today = new Date();
+    today = today.toLocaleTimeString();
     var id = "UB" + ID.toString();
     var Order = {
         id: id,
         items: ["OrderItem"],
         transactions: "randomCard",
         customer: randomName,
-        vendor: "Vendor",
+        vendor: "UberEats",
         subtotal: price,
         total: price * 1.13,
         note: "None",
         payment_method: randomCard["accountHistory"]["account"],
-        created_at: today.toLocaleTimeString(),
-        updated_at: today.toLocaleTimeString(),
+        created_at: today,
+        updated_at: today,
         status_history: ["OrderStatus"],
         scheduled_pickup: "String",
         status: "Confirmation Pending",
@@ -41,7 +42,7 @@ module.exports = class UberEatsFaker {
         discount: "Int",
     }
 
-    this.UberList[id] = Order;
+    this.UberList[today] = Order;
     console.log("Create " + Order["id"] + " : " + Order)
     //res.setHeader('Content-Type', 'application/json');
     try{

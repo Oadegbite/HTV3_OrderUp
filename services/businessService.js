@@ -2,35 +2,31 @@ const request = require('request');
 
 module.exports = class OrderPoll {
   constructor() {
+    this.orderList = {};
     this.interval;
   }
 
   getOrders(){
-    let orderList = {}
-
+    let orderList = this.orderList;
+    orderList = {};
     request('http://localhost:3000/Uber/getList/', { json: true }, (err, res, body) => {
-      console.log(body);
+      //console.log(body);
       if (err) {
         console.log("failed to place uber order");
         return -1;
       }
-      (function(){
-        return function(cb){
-
-        };
-      });
-
+      this.orderList = Object.assign(this.orderList, body);
     });
     request('http://localhost:3000/SkipTheDishes/getList/', { json: true }, (err, res, body) => {
-      console.log(body);
+      //console.log(body);
       if (err) {
         console.log("failed to place uber order");
         return -1;
       }
-      orderList = {"home": 0};
+    this.orderList = Object.assign(this.orderList, body);
     });
-    console.log(orderList);
-    return JSON.stringify(orderList);
+    console.log(this.orderList);
+    return JSON.stringify(this.orderList);
   }
 
   timerStart(restaurantID){

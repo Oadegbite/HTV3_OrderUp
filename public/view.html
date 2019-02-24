@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <style media="screen">
+      .card{
+        min-width: 200px;
+        width: 20%;
+        min-height: 150px;
+        height: 30%;
+        float: left;
+        display: inline-block;
+      }
+    </style>
     <meta charset="utf-8">
     <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -9,81 +19,144 @@
     <title></title>
   </head>
   <body>
-
-     <button onclick=UberCreateOrder(1212)> Create Uber Order </button>
-
-    <button onclick=SkipDishesCreateOrder(1212)> Create Skip Dishes Order </button>
-
-     <button onclick=SkipDishesReadyUpdateOrder(1)> Update Uber Orders to Ready</button>
-    
-    <button onclick=UberUpdateReadyOrder(1)> Update Skip Dishes Orders to Ready</button>
-
-    <button onclick=SkipDishesConfirmUpdateOrder(1)> Update Uber Orders to Confirm</button>
-    
-    <button onclick=UberUpdateConfirmOrder(1)> Update Skip Dishes Orders to Confirm</button>
-  
-    <button onclick=SkipDishesEnRouteUpdateOrder(1)> Update Uber Orders to EnRoute</button>
-    
-    <button onclick=UberUpdateEnRouteOrder(1)> Update Skip Dishes Orders to EnRoute</button>
-
   </body>
 </html>
 
-<script> 
-function UberUpdateReadyOrder(orderNum){ 
-$.ajax({ url: "http://localhost:3000/Uber/1212/updateOrderProgress/UB" + orderNum.toString() + "/Ready", 
-}).done(function(data){ 
+<script type="text/javascript">
+  function addButtons(id){
+    str ='';
+    if(id.startsWith("UB")){
+      str +=    "<button" +" id='01"+id +"'"+ "class='oubutton order' onclick=UberCreateOrder(1212)> Create Uber Order </button>"+
+      "<button" +" id='02"+id +"'"+ " class='oubutton ready' onclick=UberUpdateReadyOrder(1)> Update Uber Orders to Ready</button>"+
+      "<button" +" id='03"+id +"'"+ " class='oubutton confirm' onclick=UberUpdateConfirmOrder(1)> Update Uber Orders to Confirm</button>"+
+      "<button" +" id='04"+id +"'"+ " class='oubutton enroute' onclick=UberUpdateEnRouteOrder(1)> Update Uber Orders to EnRoute</button>";
+
+    }else if(id.startsWith("SD")){
+      str +=     "<button" +" id='01"+id +"'"+ " class='oubutton order' onclick=SkipDishesCreateOrder(1212)> Create Skip Dishes Order </button>"+
+          "<button" +" id='02"+id +"'"+ " class='oubutton ready' onclick=SkipDishesReadyUpdateOrder(1)> Update Skip Dishes Orders to Ready</button>"+
+          "<button" +" id='03"+id +"'"+ " class='oubutton confirm' onclick=SkipDishesConfirmUpdateOrder(1)> Update Skip Dishes Orders to Confirm</button>"+
+          "<button" +" id='04"+id +"'"+ " class='oubutton enroute' onclick=SkipDishesEnRouteUpdateOrder(1)> Update Skip Dishes Orders to EnRoute</button>";
+    }
+    $('#' + id).append(str);
+    return str;
+  }
+  function showButtons(status, id){
+    $('.oubutton').hide();
+    var str = '';
+    switch(status){
+      case "Confirmation Pending":
+        $('.confirm').show();
+        break;
+      case "":
+      case "":
+      case "":
+      case "":
+      case "":
+      case "":
+    }
+    return str;
+  }
+  function display(data){
+    var id = '';
+    var status = '';
+    $("body").empty();
+    $.each(data, function(i, val){
+      id = val["id"];
+      status = val["status"];
+      $("body").append("<div id='"+val['id']+"' class='card'>"+
+       "<h2>"+i +": " + val["items"] +"</h2>"+
+       "<p>" + val["status"] +"</p>"+
+       "<p>" + val["customer"] +"</p>"+
+       "<p>" + val["vendor"] +"</p>"+
+       "<p>" + val["total"] +"</p>"+
+       "<p>" + val["created_at"] +"</p>"+
+       "<p>" + val["scheduled_pickup"] +"</p>"+
+       "<p>" + val["estimated_preparing_sec"] +"</p>"
+       +"</div>");
+    });
+    addButtons(id);
+    showButtons(status, id);
+  }
+  $(document).ready(function(){
+    $.ajax({ url: "http://localhost:3001/orders",
+    }).done(function(data){
+      console.log(" ");
+      console.log(data);
+      console.log("Got List end");
+      display(data);
+      //return data;
+    });
+    var orderList = GetList();
+    console.log(orderList);
+  function GetList(){
+    $.ajax({ url: "http://localhost:3001/orders",
+    }).done(function(data){
+      console.log(" ");
+      console.log(data);
+      console.log("Got List end");
+      display(data);
+      //return data;
+    })};
+  setInterval(GetList, 1000);
+  });
+
+</script>
+
+<script>
+function UberUpdateReadyOrder(orderNum){
+$.ajax({ url: "http://localhost:3000/Uber/1212/updateOrderProgress/UB" + orderNum.toString() + "/Ready",
+}).done(function(data){
   console.log(" ");
   console.log(data);
   console.log("UberUpdateOrder end")})};
 
-function SkipDishesReadyUpdateOrder(orderNum){ 
-$.ajax({ url: "http://localhost:3000/SkipTheDishes/1212/updateOrderProgress/SD" + orderNum.toString() + "/Ready", 
-}).done(function(data){ 
+function SkipDishesReadyUpdateOrder(orderNum){
+$.ajax({ url: "http://localhost:3000/SkipTheDishes/1212/updateOrderProgress/SD" + orderNum.toString() + "/Ready",
+}).done(function(data){
   console.log(" ");
   console.log(data);
   console.log("SkipDishesUpdateOrder end")})};
 
-  function UberUpdateConfirmOrder(orderNum){ 
-$.ajax({ url: "http://localhost:3000/Uber/1212/updateOrderProgress/UB" + orderNum.toString() + "/Confirm", 
-}).done(function(data){ 
+  function UberUpdateConfirmOrder(orderNum){
+$.ajax({ url: "http://localhost:3000/Uber/1212/updateOrderProgress/UB" + orderNum.toString() + "/Confirm",
+}).done(function(data){
   console.log(" ");
   console.log(data);
   console.log("UberUpdateOrder end")})};
 
-function SkipDishesConfirmUpdateOrder(orderNum){ 
-$.ajax({ url: "http://localhost:3000/SkipTheDishes/1212/updateOrderProgress/SD" + orderNum.toString() + "/Confirm", 
-}).done(function(data){ 
+function SkipDishesConfirmUpdateOrder(orderNum){
+$.ajax({ url: "http://localhost:3000/SkipTheDishes/1212/updateOrderProgress/SD" + orderNum.toString() + "/Confirm",
+}).done(function(data){
   console.log(" ");
   console.log(data);
   console.log("SkipDishesUpdateOrder end")})};
 
-  function UberUpdateEnRouteOrder(orderNum){ 
-$.ajax({ url: "http://localhost:3000/Uber/1212/updateOrderProgress/UB" + orderNum.toString() + "/EnRoute", 
-}).done(function(data){ 
+  function UberUpdateEnRouteOrder(orderNum){
+$.ajax({ url: "http://localhost:3000/Uber/1212/updateOrderProgress/UB" + orderNum.toString() + "/EnRoute",
+}).done(function(data){
   console.log(" ");
   console.log(data);
   console.log("UberUpdateOrder end")})};
 
-function SkipDishesEnRouteUpdateOrder(orderNum){ 
-$.ajax({ url: "http://localhost:3000/SkipTheDishes/1212/updateOrderProgress/SD" + orderNum.toString() + "/EnRoute", 
-}).done(function(data){ 
+function SkipDishesEnRouteUpdateOrder(orderNum){
+$.ajax({ url: "http://localhost:3000/SkipTheDishes/1212/updateOrderProgress/SD" + orderNum.toString() + "/EnRoute",
+}).done(function(data){
   console.log(" ");
   console.log(data);
   console.log("SkipDishesUpdateOrder end")})};
 
-function SkipDishesCreateOrder(ResturantID){ 
-$.ajax({ url: "http://localhost:3000/SkipTheDishes/"+ ResturantID.toString() +"/neworder", 
-}).done(function(data){ 
+function SkipDishesCreateOrder(ResturantID){
+$.ajax({ url: "http://localhost:3000/SkipTheDishes/"+ ResturantID.toString() +"/neworder",
+}).done(function(data){
   console.log(" ");
   console.log(data);
   console.log("SkipDishesCreateOrder end")})};
 
-function UberCreateOrder(ResturantID){ 
-$.ajax({ url: "http://localhost:3000/Uber/"+ ResturantID.toString() +"/neworder", 
-}).done(function(data){ 
+function UberCreateOrder(ResturantID){
+$.ajax({ url: "http://localhost:3000/Uber/"+ ResturantID.toString() +"/neworder",
+}).done(function(data){
   console.log(" ");
   console.log(data);
   console.log("UberCreateOrder end")})};
 
-</script> 
+</script>

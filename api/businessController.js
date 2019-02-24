@@ -21,6 +21,7 @@ var businessController = {
      res.send(OrderPoll.timerStart(restaurantID));
    },
    showOrders: function(req, res){
+     res.setHeader('Content-Type', 'application/json');
      var orders  = OrderPoll.getOrders();
      res.send(orders);
    },
